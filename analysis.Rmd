@@ -1,0 +1,44 @@
+---
+title: "analysis"
+author: "author"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+source("source_package.R")
+
+source("source_query.R")
+
+knitr::opts_knit$set(root.dir=workingDirectory)
+
+options(scipen=999) # prevent scientific notation
+set.seed(1881)
+
+sessionInfo()
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r some_query_name_here}
+glimpse(dataList$some_query_name_here)
+```
+
+```{r soqn}
+soqn <- dataList$some_other_query_name
+
+glimpse(soqn)
+```
+
+```{r soqn_n}
+soqn_n <- soqn %>%
+  group_by(GROUP) %>%
+  summarise(KEY_N=n_distinct(KEY)) %>%
+  arrange(desc(KEY_N))
+
+soqn_n
+```
